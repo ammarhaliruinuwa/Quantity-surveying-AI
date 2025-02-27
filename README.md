@@ -38,26 +38,23 @@
       margin-bottom: 1.5rem;
     }
 
-    .feature {
+    form {
       display: flex;
-      align-items: center;
+      flex-direction: column;
+      max-width: 400px;
+      margin: 0 auto;
+    }
+
+    label {
+      margin-bottom: 0.5rem;
+      font-weight: bold;
+    }
+
+    input[type="number"], input[type="text"] {
+      padding: 0.5rem;
       margin-bottom: 1rem;
-    }
-
-    .feature img {
-      width: 60px;
-      height: 60px;
-      margin-right: 1rem;
-    }
-
-    footer {
-      text-align: center;
-      padding: 1rem 0;
-      background: #2c3e50;
-      color: white;
-      position: relative;
-      bottom: 0;
-      width: 100%;
+      border: 1px solid #ccc;
+      border-radius: 4px;
     }
 
     button {
@@ -93,47 +90,14 @@
       margin: 0.5rem 0;
     }
 
-    .insight-card p {
-      font-size: 1rem;
-      color: #666;
-    }
-
-    /* Modal Styles */
-    .modal {
-      display: none;
-      position: fixed;
-      z-index: 1;
-      left: 0;
-      top: 0;
+    footer {
+      text-align: center;
+      padding: 1rem 0;
+      background: #2c3e50;
+      color: white;
+      position: relative;
+      bottom: 0;
       width: 100%;
-      height: 100%;
-      overflow: auto;
-      background-color: rgba(0, 0, 0, 0.5);
-    }
-
-    .modal-content {
-      background-color: #fefefe;
-      margin: 15% auto;
-      padding: 20px;
-      border: 1px solid #888;
-      width: 80%;
-      max-width: 600px;
-      border-radius: 8px;
-      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
-    }
-
-    .close {
-      color: #aaa;
-      float: right;
-      font-size: 28px;
-      font-weight: bold;
-    }
-
-    .close:hover,
-    .close:focus {
-      color: black;
-      text-decoration: none;
-      cursor: pointer;
     }
   </style>
 </head>
@@ -145,65 +109,23 @@
 
   <div class="container">
     <div class="section">
-      <h2>Key Features</h2>
-      <div class="feature">
-        <img src="https://via.placeholder.com/60x60?text=Automation" alt="Automation Icon">
-        <div>
-          <h3>Task Automation</h3>
-          <p>Automate repetitive tasks such as material takeoff, cost estimation, and report generation using advanced AI algorithms.</p>
-        </div>
-      </div>
-      <div class="feature">
-        <img src="https://via.placeholder.com/60x60?text=Insights" alt="Insights Icon">
-        <div>
-          <h3>Data-Driven Insights</h3>
-          <p>Access real-time analytics and predictive insights to make informed decisions about project costs and timelines.</p>
-        </div>
-      </div>
-      <div class="feature">
-        <img src="https://via.placeholder.com/60x60?text=Collaboration" alt="Collaboration Icon">
-        <div>
-          <h3>Enhanced Collaboration</h3>
-          <p>Collaborate seamlessly with team members through integrated communication tools and shared project dashboards.</p>
-        </div>
-      </div>
+      <h2>Project Cost Estimator</h2>
+      <form id="projectForm">
+        <label for="area">Project Area (sqm):</label>
+        <input type="number" id="area" name="area" required>
+
+        <label for="materials">Materials Used:</label>
+        <input type="text" id="materials" name="materials" placeholder="e.g., Steel, Concrete" required>
+
+        <button type="submit">Estimate Costs</button>
+      </form>
     </div>
 
     <div class="section">
       <h2>Data Insights</h2>
-      <div class="data-insights">
-        <div class="insight-card">
-          <h3>Project Costs</h3>
-          <p>$500,000</p>
-        </div>
-        <div class="insight-card">
-          <h3>Material Usage</h3>
-          <p>200 tons of steel</p>
-        </div>
-        <div class="insight-card">
-          <h3>Time Estimation</h3>
-          <p>12 months</p>
-        </div>
-        <div class="insight-card">
-          <h3>Resource Allocation</h3>
-          <p>50 workers</p>
-        </div>
+      <div class="data-insights" id="insights">
+        <!-- Dynamic insights will be inserted here -->
       </div>
-    </div>
-
-    <div class="section">
-      <h2>Get Started</h2>
-      <button id="startButton">Start Now</button>
-    </div>
-  </div>
-
-  <!-- Modal -->
-  <div id="myModal" class="modal">
-    <div class="modal-content">
-      <span class="close">&times;</span>
-      <h2>Welcome to the AI-Powered Quantity Surveyor Workflow</h2>
-      <p>This platform is designed to streamline your workflow by automating tasks, providing data-driven insights, and enhancing collaboration.</p>
-      <button onclick="closeModal()">Close</button>
     </div>
   </div>
 
@@ -212,36 +134,39 @@
   </footer>
 
   <script>
-    // Get modal element
-    var modal = document.getElementById("myModal");
+    // Simulate AI-driven cost estimation
+    document.getElementById('projectForm').addEventListener('submit', function(event) {
+      event.preventDefault();
 
-    // Get the button that opens the modal
-    var startButton = document.getElementById("startButton");
+      // Get user input
+      const area = parseFloat(document.getElementById('area').value);
+      const materials = document.getElementById('materials').value;
 
-    // Get the <span> element that closes the modal
-    var span = document.getElementsByClassName("close")[0];
+      // Simulate AI calculation (basic example)
+      const baseCostPerSqm = 150; // Example cost per square meter
+      const materialCostFactor = materials.includes('Steel') ? 1.2 : 1.0; // Adjust cost based on materials
+      const totalCost = area * baseCostPerSqm * materialCostFactor;
 
-    // When the user clicks the button, open the modal 
-    startButton.onclick = function() {
-      modal.style.display = "block";
-    }
+      // Display results dynamically
+      const insightsSection = document.getElementById('insights');
+      insightsSection.innerHTML = ''; // Clear previous insights
 
-    // When the user clicks on <span> (x), close the modal
-    span.onclick = function() {
-      closeModal();
-    }
+      // Create insight cards
+      const createCard = (title, value) => {
+        const card = document.createElement('div');
+        card.className = 'insight-card';
+        card.innerHTML = `
+          <h3>${title}</h3>
+          <p>${value}</p>
+        `;
+        insightsSection.appendChild(card);
+      };
 
-    // When the user clicks anywhere outside of the modal, close it
-    window.onclick = function(event) {
-      if (event.target == modal) {
-        closeModal();
-      }
-    }
-
-    // Function to close the modal
-    function closeModal() {
-      modal.style.display = "none";
-    }
+      createCard('Project Area', `${area} sqm`);
+      createCard('Materials', materials);
+      createCard('Estimated Cost', `$${totalCost.toFixed(2)}`);
+      createCard('Time Estimation', `${Math.ceil(area / 100)} months`); // Example time estimation
+    });
   </script>
 </body>
 </html>
